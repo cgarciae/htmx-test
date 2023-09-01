@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "htmx-test"
+version = "0.1.0"
+description = ""
+authors = ["Cristian Garcia <cgarcia.e88@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.103.0"
+uvicorn = "^0.23.2"
+jinja2 = "^3.1.2"
+aiofiles = "^23.2.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
