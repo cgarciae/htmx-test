@@ -1,0 +1,12 @@
+<div id="todos">
+    {% for todo in todos.values() | sort(attribute="id") %}
+    {% include "todo.jinja" %}
+    {% endfor %}
+</div>
+
+<div class="fixed-action-btn">
+    <a class="btn-floating btn-large waves-effect waves-light red" hx-put="/todos" hx-target="#todos"
+        hx-swap="beforeend">
+        <i class="material-icons">add</i>
+    </a>
+</div>
