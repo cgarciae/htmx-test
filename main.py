@@ -14,7 +14,7 @@ templates = Jinja2Templates(directory="templates")
 DB_PATH = Path("db.json")
 
 if not DB_PATH.exists():
-    json.dump({"count": 0}, DB_PATH.open("w"))
+    json.dump({"count": 0, "todos": {}}, DB_PATH.open("w"))
 
 
 async def load_db() -> dict[str, Any]:
