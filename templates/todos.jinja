@@ -1,4 +1,5 @@
 <div id="todos">
+    <h3>Todos</h3>
     {% for todo in todos.values() | sort(attribute="id") %}
     {% include "todo.jinja" %}
     {% endfor %}
