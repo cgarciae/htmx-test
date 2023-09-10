@@ -1,15 +1,31 @@
-<div class="row" id="todo-{{todo.id}}">
+<div class="row" id="todo-{{todo.id}}"
+    x-data="{edit: {{edit if edit is defined else 'false'}}, text: '{{todo.text}}', title: '{{todo.title}}'}">
     <div class="col s12 m6 offset-m3">
-        <form class="card" hx-post="/todos/{{todo.id}}" hx-target="#todo-{{todo.id}}" hx-swap="outerHTML">
+        {# view #}
+        <div class="card" x-show="!edit">
             <div class="card-content">
-                <input class="card-title" type="text" name="title" value="{{ todo.title }}" placeholder="Title">
-                <textarea class="materialize-textarea" name="text" placeholder="Text">{{ todo.text }}</textarea>
+                <span class="card-title" x-text="title"></span>
+                <p x-text="text"></p>
             </div>
             <div class="card-action">
-                <button class="btn green">Save</button>
-                <button class="btn red" hx-delete="/todos/{{todo.id}}" hx-target="#todo-{{todo.id}}"
-                    hx-swap="delete">Delete</button>
+                <button class="btn green" @click="edit = true">Edit</button>
+                <button class="btn red" hx-delete="/todos/{{todo.id}}" hx-target="#todo-{{todo.id}}" hx-swap="delete"
+                    @click="$dispatch('todo-removed')">Remove</button>
+            </div>
+        </div>
+        {# edit #}
+        <form class="card" hx-post="/todos/{{todo.id}}" hx-target="next .null" hx-swap="innterHTML" x-show="edit">
+            <div class="card-content">
+                <input class="card-title" type="text" name="title" placeholder="Title" x-model="title">
+                <textarea class="materialize-textarea" name="text" placeholder="Text" x-model="text"></textarea>
+            </div>
+            <div class="card-action">
+                <button class="btn green" type="submit" @click="edit = false">Save</button>
+                <button class="btn red" hx-delete="/todos/{{todo.id}}" hx-target="#todo-{{todo.id}}" hx-swap="delete"
+                    @click="$dispatch('todo-removed')">Remove</button>
             </div>
         </form>
+        {# ignore #}
+        <div hidden class="null"></div>
     </div>
 </div>

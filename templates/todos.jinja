@@ -1,13 +1,29 @@
-<div id="todos">
-    <h3>Todos</h3>
-    {% for todo in todos.values() | sort(attribute="id") %}
-    {% include "todo.jinja" %}
-    {% endfor %}
+<div x-data="todos({{ todos|length }})" @todo-removed="decrement()">
+    <h3>Todos (<span x-text="count"></span>)</h3>
+    <div id="todo-list">
+        {% for todo in todos.values() | sort(attribute="id") %}
+        {% include "todo.jinja" %}
+        {% endfor %}
+    </div>
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large waves-effect waves-light red" hx-put="/todos" hx-target="#todo-list"
+            hx-swap="beforeend" @click="increment()">
+            <i class="material-icons">add</i>
+        </a>
+    </div>
 </div>
 
-<div class="fixed-action-btn">
-    <a class="btn-floating btn-large waves-effect waves-light red" hx-put="/todos" hx-target="#todos"
-        hx-swap="beforeend">
-        <i class="material-icons">add</i>
-    </a>
-</div>
+
+<script>
+    function todos(count) {
+        return {
+            count: count,
+            increment() {
+                this.count++
+            },
+            decrement() {
+                this.count--
+            }
+        }
+    }
+</script>

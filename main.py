@@ -48,7 +48,7 @@ async def save(
     todo.update({"title": title, "text": text})
     await save_db(db)
 
-    return templates.TemplateResponse("todo.jinja", dict(request=request, todo=todo))
+    return "ok"
 
 
 # new todo
@@ -61,7 +61,9 @@ async def new(request: Request):
     db["todos"][f"{id}"] = todo
     await save_db(db)
 
-    return templates.TemplateResponse("todo.jinja", dict(request=request, todo=todo))
+    return templates.TemplateResponse(
+        "todo.jinja", dict(request=request, todo=todo, edit="true")
+    )
 
 
 # delete todo
